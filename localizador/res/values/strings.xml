@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">LocalizAR UFJF</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Busca</string>
+    <string name="action_map">Mapa</string>
+    <string name="action_cam">Camera</string>
+    <string name="nula"></string>
+    <string name="navigation_drawer_open">Aberta</string>
+    <string name="navigation_drawer_close">Fechada</string>
+    <string name="sobre">Sobre</string>
+    <string name="ok">OK</string>
+    <string name="autor">Autor: Igor Couto</string>
+    <string name="orientador">Orientador: Rodrigo Luis</string>
+    <string name="direitos_res">Todos os direitos reservados. 2015 ©</string>
+
+    <array name="itensMenu">
+        <item>Opções</item>
+        <item>Versão do Banco</item>
+        <item>Sobre</item>
+    </array>
+
+</resources>

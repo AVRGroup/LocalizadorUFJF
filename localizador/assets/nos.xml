@@ -1,0 +1,493 @@
+<location>
+
+	<no>
+		<id>1</id>
+		<latitude>-21.777999</latitude>
+		<longitude>-43.371220</longitude>
+		<liga>2 13</liga>
+	</no>
+	
+	<no>
+		<id>2</id>
+		<latitude>-21.77761509</latitude>
+		<longitude>-43.37133452</longitude>
+		<liga>1 3</liga>
+	</no>
+	
+	<no>
+		<id>3</id>
+		<latitude>-21.77709949</latitude>
+		<longitude>-43.37145187</longitude>
+		<liga>2 4 30</liga>
+	</no>
+
+	<no>
+		<id>4</id>
+		<latitude>-21.77642947</latitude>
+		<longitude>-43.37160073</longitude>
+		<liga>3 5 47</liga>
+	</no>
+	
+	<no>
+		<id>5</id>
+		<latitude>-21.77575571</latitude>
+		<longitude>-43.37176166</longitude>
+		<liga>4 6 61 69</liga>
+	</no>
+	
+	<no>
+		<id>6</id>
+		<latitude>-21.77552531</latitude>
+		<longitude>-43.37183811</longitude>
+		<liga>5 7 64 65</liga>
+	</no>
+	
+	<no>
+		<id>7</id>
+		<latitude>-21.77545432</latitude>
+		<longitude>-43.3719065</longitude>
+		<liga>6 8</liga>
+	</no>
+	
+	<no>
+		<id>8</id>
+		<latitude>-21.77540076</latitude>
+		<longitude>-43.3719977</longitude>
+		<liga>7 9 63</liga>
+	</no>
+	
+	<no>
+		<id>9</id>
+		<latitude>-21.77540326</latitude>
+		<longitude>-43.37211572</longitude>
+		<liga>8 10</liga>
+	</no>
+
+	<no>
+		<id>10</id>
+		<latitude>-21.77547549</latitude>
+		<longitude>-43.37223642</longitude>
+		<liga>9 11</liga>
+	</no>
+	
+	<no>
+		<id>11</id>
+		<latitude>-21.77561124</latitude>
+		<longitude>-43.37229274</longitude>
+		<liga>10 12</liga>
+	</no>
+
+	<no>
+		<id>12</id>
+		<latitude>-21.77574948</latitude>
+		<longitude>-43.37230481</longitude>
+		<liga>11</liga>
+	</no>
+	
+	<no>
+		<id>13</id>
+		<latitude>-21.778051</latitude>
+		<longitude>-43.371564</longitude>
+		<liga>1 14</liga>
+	</no>
+	
+	<no>
+		<id>14</id>
+		<latitude>-21.77787973</latitude>
+		<longitude>-43.37159503</longitude>
+		<liga>13 15 22</liga>
+	</no>
+	
+	<no>
+		<id>15</id>
+		<latitude>-21.77786541</latitude>
+		<longitude>-43.37147601</longitude>
+		<liga>14 16</liga>
+	</no>
+	
+	<no>
+		<id>16</id>
+		<latitude>-21.77761384</latitude>
+		<longitude>-43.37153234</longitude>
+		<liga>15 17</liga>
+	</no>
+	
+	<no>
+		<id>17</id>
+		<latitude>-21.77759765</latitude>
+		<longitude>-43.37145858</longitude>
+		<liga>16 18</liga>
+	</no>
+	
+	<no>
+		<id>18</id>
+		<latitude>-21.77751296</latitude>
+		<longitude>-43.37147065</longitude>
+		<liga>17 19</liga>
+	</no>
+	
+	<no>
+		<id>19</id>
+		<latitude>-21.77743201</latitude>
+		<longitude>-43.37148674</longitude>
+		<liga>18 20</liga>
+	</no>
+	
+	<no>
+		<id>20</id>
+		<latitude>-21.77734235</latitude>
+		<longitude>-43.37151222</longitude>
+		<liga>19 21</liga>
+	</no>
+	
+	<no>
+		<id>21</id>
+		<latitude>-21.77735854</latitude>
+		<longitude>-43.37160207</longitude>
+		<liga>20 22</liga>
+	</no>
+	
+	<no>
+		<id>22</id>
+		<latitude>-21.77737846</latitude>
+		<longitude>-43.37170266</longitude>
+		<liga>21 14 23</liga>
+	</no>
+	
+	<no>
+		<id>23</id>
+		<latitude>-21.777347</latitude>
+		<longitude>-43.371708</longitude>
+		<liga>22 24</liga>
+	</no>
+
+	<no>
+		<id>24</id>
+		<latitude>-21.777257</latitude>
+		<longitude>-43.371727</longitude>
+		<liga>23 25</liga>
+	</no>	
+	
+	<no>
+		<id>25</id>
+		<latitude>-21.777169</latitude>
+		<longitude>-43.371749</longitude>
+		<liga>24 26</liga>
+	</no>	
+	
+	<no>
+		<id>26</id>
+		<latitude>-21.777084</latitude>
+		<longitude>-43.371767</longitude>
+		<liga>25 27</liga>
+	</no>	
+	
+	<no>
+		<id>27</id>
+		<latitude>-21.776985</latitude>
+		<longitude>-43.371791</longitude>
+		<liga>26 28</liga>
+	</no>
+	
+	<no>
+		<id>28</id>
+		<latitude>-21.776922</latitude>
+		<longitude>-43.371804</longitude>
+		<liga>27 29</liga>
+	</no>
+	
+	<no>
+		<id>29</id>
+		<latitude>-21.776903</latitude>
+		<longitude>-43.371704</longitude>
+		<liga>28 30</liga>
+	</no>
+	
+	<no>
+		<id>30</id>
+		<latitude>-21.777148</latitude>
+		<longitude>-43.371647</longitude>
+		<liga>21 3 29</liga>
+	</no>
+	
+	<no>
+		<id>31</id>
+		<latitude>-21.776885</latitude>
+		<longitude>-43.371619</longitude>
+		<liga>29 32</liga>
+	</no>
+
+	<no>
+		<id>32</id>
+		<latitude>-21.776805</latitude>
+		<longitude>-43.371637</longitude>
+		<liga>34 33</liga>
+	</no>
+	
+	<no>
+		<id>33</id>
+		<latitude>-21.776681</latitude>
+		<longitude>-43.371665</longitude>
+		<liga>32 35</liga>
+	</no>
+	
+	<no>
+		<id>34</id>
+		<latitude>-21.776820</latitude>
+		<longitude>-43.371720</longitude>
+		<liga>29 35</liga>
+	</no>
+	
+	<no>
+		<id>35</id>
+		<latitude>-21.776698</latitude>
+		<longitude>-43.371747</longitude>
+		<liga>33 34 36 47</liga>
+	</no>
+	
+	<no>
+		<id>36</id>
+		<latitude>-21.776715</latitude>
+		<longitude>-43.371846</longitude>
+		<liga>35 37</liga>
+	</no>
+	
+	<no>
+		<id>37</id>
+		<latitude>-21.776684</latitude>
+		<longitude>-43.371845</longitude>
+		<liga>36 38</liga>
+	</no>
+	
+	<no>
+		<id>38</id>
+		<latitude>-21.776640</latitude>
+		<longitude>-43.371854</longitude>
+		<liga>37 39</liga>
+	</no>
+	
+	<no>
+		<id>39</id>
+		<latitude>-21.776600</latitude>
+		<longitude>-43.371863</longitude>
+		<liga>38 40</liga>
+	</no>
+	
+	<no>
+		<id>40</id>
+		<latitude>-21.776560</latitude>
+		<longitude>-43.371872</longitude>
+		<liga>30 41</liga>
+	</no>
+	
+	<no>
+		<id>41</id>
+		<latitude>-21.776513</latitude>
+		<longitude>-43.371881</longitude>
+		<liga>40 42</liga>
+	</no>
+	
+	<no>
+		<id>42</id>
+		<latitude>-21.776466</latitude>
+		<longitude>-43.371892</longitude>
+		<liga>41 43</liga>
+	</no>
+	
+	<no>
+		<id>43</id>
+		<latitude>-21.776420</latitude>
+		<longitude>-43.371902</longitude>
+		<liga>42 44</liga>
+	</no>
+	
+	<no>
+		<id>44</id>
+		<latitude>-21.776374</latitude>
+		<longitude>-43.371913</longitude>
+		<liga>43 45</liga>
+	</no>
+	
+	<no>
+		<id>45</id>
+		<latitude>-21.776323</latitude>
+		<longitude>-43.371923</longitude>
+		<liga>44 46</liga>
+	</no>
+	
+	<no>
+		<id>46</id>
+		<latitude>-21.776278</latitude>
+		<longitude>-43.371932</longitude>
+		<liga>45 48</liga>
+	</no>
+	
+	<no>
+		<id>47</id>
+		<latitude>-21.776485</latitude>
+		<longitude>-43.371791</longitude>
+		<liga>4 35 48</liga>
+	</no>
+	
+	<no>
+		<id>48</id>
+		<latitude>-21.776260</latitude>
+		<longitude>-43.371837</longitude>
+		<liga>47 46 49 52</liga>
+	</no>
+	
+	<no>
+		<id>49</id>
+		<latitude>-21.776245</latitude>
+		<longitude>-43.371760</longitude>
+		<liga>48 50</liga>
+	</no>
+	
+	<no>
+		<id>50</id>
+		<latitude>-21.776144</latitude>
+		<longitude>-43.371781</longitude>
+		<liga>49 52 51</liga>
+	</no>
+	
+	<no>
+		<id>51</id>
+		<latitude>-21.776022</latitude>
+		<longitude>-43.371806</longitude>
+		<liga>50 53</liga>
+	</no>
+	
+	<no>
+		<id>52</id>
+		<latitude>-21.776162</latitude>
+		<longitude>-43.371867</longitude>
+		<liga>48 50 53</liga>
+	</no>
+	
+	<no>
+		<id>53</id>
+		<latitude>-21.776038</latitude>
+		<longitude>-43.371892</longitude>
+		<liga>51 52 54 61</liga>
+	</no>
+	
+	<no>
+		<id>54</id>
+		<latitude>-21.776056</latitude>
+		<longitude>-43.371985</longitude>
+		<liga>53 55</liga>
+	</no>
+	
+	<no>
+		<id>55</id>
+		<latitude>-21.775998</latitude>
+		<longitude>-43.371999</longitude>
+		<liga>54 56</liga>
+	</no>
+	
+	<no>
+		<id>56</id>
+		<latitude>-21.775916</latitude>
+		<longitude>-43.372016</longitude>
+		<liga>55 57</liga>
+	</no>
+	
+	<no>
+		<id>57</id>
+		<latitude>-21.775836</latitude>
+		<longitude>-43.372032</longitude>
+		<liga>56 58</liga>
+	</no>
+	
+	<no>
+		<id>58</id>
+		<latitude>-21.775758</latitude>
+		<longitude>-43.372049</longitude>
+		<liga>57 59</liga>
+	</no>
+	
+	<no>
+		<id>59</id>
+		<latitude>-21.775677</latitude>
+		<longitude>-43.372065</longitude>
+		<liga>58 60</liga>
+	</no>
+	
+	<no>
+		<id>60</id>
+		<latitude>-21.775585</latitude>
+		<longitude>-43.372089</longitude>
+		<liga>59 62</liga>
+	</no>
+	
+	<no>
+		<id>61</id>
+		<latitude>-21.775815</latitude>
+		<longitude>-43.371937</longitude>
+		<liga>53 5</liga>
+	</no>
+	
+	<no>
+		<id>62</id>
+		<latitude>-21.775484</latitude>
+		<longitude>-43.372114</longitude>
+		<liga>60 63</liga>
+	</no>
+	
+	<no>
+		<id>63</id>
+		<latitude>-21.775473</latitude>
+		<longitude>-43.372025</longitude>
+		<liga>62 8</liga>
+	</no>
+	
+	<no>
+		<id>64</id>
+		<latitude>-21.775519</latitude>
+		<longitude>-43.371942</longitude>
+		<liga>6</liga>
+	</no>
+	
+	<no>
+		<id>65</id>
+		<latitude>-21.775463</latitude>
+		<longitude>-43.371724</longitude>
+		<liga>6 66</liga>
+	</no>
+	
+	<no>
+		<id>66</id>
+		<latitude>-21.775521</latitude>
+		<longitude>-43.371709</longitude>
+		<liga>65 67</liga>
+	</no>
+	
+	<no>
+		<id>67</id>
+		<latitude>-21.775569</latitude>
+		<longitude>-43.371699</longitude>
+		<liga>66 68</liga>
+	</no>
+	
+	<no>
+		<id>68</id>
+		<latitude>-21.775610</latitude>
+		<longitude>-43.371688</longitude>
+		<liga>67 69</liga>
+	</no>
+	
+	<no>
+		<id>69</id>
+		<latitude>-21.775662</latitude>
+		<longitude>-43.371677</longitude>
+		<liga>68 5</liga>
+	</no>
+	
+	<no>
+		<id>70</id>
+		<latitude>-21.7757793</latitude>
+		<longitude>-43.3721921</longitude>
+		<liga>12</liga>
+	</no>
+
+</location>

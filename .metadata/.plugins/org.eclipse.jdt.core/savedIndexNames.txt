@@ -1,0 +1,7 @@
+INDEX VERSION 1.126+C:\Users\Igor Couto\Desktop\Localizador\.metadata\.plugins\org.eclipse.jdt.core
+848856923.index
+2167505788.index
+453629869.index
+25985835.index
+4250790246.index
+1284074322.index

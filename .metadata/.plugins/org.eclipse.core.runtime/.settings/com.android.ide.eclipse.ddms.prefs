@@ -1,0 +1,12 @@
+ddms.logcat.automonitor.userprompt=true
+eclipse.preferences.version=1
+logcat.messagelist.max.size=50000
+logcat.view.auto-scroll-lock=false
+logcat.view.colsize.Application=177
+logcat.view.colsize.Level=63
+logcat.view.colsize.PID=50
+logcat.view.colsize.TID=50
+logcat.view.colsize.Tag=187
+logcat.view.colsize.Text=543
+logcat.view.colsize.Time=147
+logcat.view.filters.list=name\: 'No', tag\: 'NO', text\: '', pid\: '', app\: '', level\: 'error', name\: 'menorCaminho', tag\: 'menorCaminho', text\: '', pid\: '', app\: '', level\: 'verbose', name\: 'EncontraNo', tag\: 'ENCONTRA_NO', text\: '', pid\: '', app\: '', level\: 'verbose', name\: 'BuscaCaminho', tag\: 'BuscaCaminho', text\: '', pid\: '', app\: '', level\: 'verbose', name\: 'AStar', tag\: 'AStar', text\: '', pid\: '', app\: '', level\: 'info', name\: 'ORIENTACAO AZIM', tag\: 'ORIENTACAO AZIM', text\: '', pid\: '', app\: '', level\: 'info', name\: 'Compass', tag\: 'Compass', text\: '', pid\: '', app\: '', level\: 'debug', name\: 'COORDENADAS CONVERTIDAS', tag\: 'COORDENADAS CONVERTIDAS', text\: '', pid\: '', app\: '', level\: 'info', 

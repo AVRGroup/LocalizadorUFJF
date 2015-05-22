@@ -1,0 +1,316 @@
+<root>
+<area>
+	<info>
+		<nome>ICE</nome>
+	</info>
+	<local>
+		<nome>GETComp</nome>
+		<latitude>-21.77593231</latitude>
+		<longitude>-43.37218873</longitude>
+	</local>
+	<local>
+		<nome>Xerox</nome>
+		<latitude>-21.776892</latitude>
+		<longitude>-43.371742</longitude>
+	</local>
+	<local>
+		<nome>S404</nome>
+		<latitude>-21.77544809</latitude>
+		<longitude>-43.37170199</longitude>
+	</local>
+	<local>
+		<nome>S403</nome>
+		<latitude>-21.77549168</latitude>
+		<longitude>-43.37166175</longitude>
+	</local>
+	<local>
+		<nome>S402</nome>
+		<latitude>-21.77564362</latitude>
+		<longitude>-43.37161481</longitude>
+	</local>
+	<local>
+		<nome>S401</nome>
+		<latitude>-21.77572955</latitude>
+		<longitude>-43.37158799</longitude>
+	</local>
+		<local>
+		<nome>S304</nome>
+		<latitude>-21.77544809</latitude>
+		<longitude>-43.37170199</longitude>
+	</local>
+	<local>
+		<nome>S303</nome>
+		<latitude>-21.77549168</latitude>
+		<longitude>-43.37166175</longitude>
+	</local>
+	<local>
+		<nome>S302</nome>
+		<latitude>-21.77564362</latitude>
+		<longitude>-43.37161481</longitude>
+	</local>
+	<local>
+		<nome>S301</nome>
+		<latitude>-21.77572955</latitude>
+		<longitude>-43.37158799</longitude>
+	</local>
+	<local>
+		<nome>Anfiteatro</nome>
+		<latitude>-21.77791024</latitude>
+		<longitude>-43.3713714</longitude>
+	</local>
+	
+	<local>
+		<nome>Cantina</nome>
+		<latitude>-21.77536963</latitude>
+		<longitude>-43.37170534</longitude>
+	</local>
+	
+	<local>
+		<nome>Diretorio Academico</nome>
+		<latitude>-21.77682613</latitude>
+		<longitude>-43.3717848</longitude>
+	</local>
+	
+	<local>
+		<nome>DA</nome>
+		<latitude>-21.7767869</latitude>
+		<longitude>-43.37192461</longitude>
+	</local>
+	
+	<local>
+		<nome>Secretaria</nome>
+		<latitude>-21.7767869</latitude>
+		<longitude>-43.37192461</longitude>
+	</local>
+	
+	<local>
+		<nome>Biblioteca Ciencia e Tecnologia</nome>
+		<latitude>-21.77840342</latitude>
+		<longitude>-43.37191924</longitude>
+	</local>
+	
+	<local>
+		<nome>Departamento de Matematica</nome>
+		<latitude>-21.77562867</latitude>
+		<longitude>-43.37192461</longitude>
+	</local>
+	
+	<local>
+		<nome>Coordena��o Ciencias Exatas</nome>
+		<latitude>-21.77684917</latitude>
+		<longitude>-43.37178782</longitude>
+	</local>
+	
+	<local>
+		<nome>Antigo GCG</nome>
+		<latitude>-21.77697122</latitude>
+		<longitude>-43.37159537</longitude>
+	</local>	
+	
+	<local>
+		<nome>3410</nome>
+		<latitude>-21.77697122</latitude>
+		<longitude>-43.37159537</longitude>
+	</local>
+	
+	<local>
+		<nome>MEC - Laboratorio Multidisciplinar de Ensino Cientifico</nome>
+		<latitude>-21.77686536</latitude>
+		<longitude>-43.37158062</longitude>
+	</local>
+	
+	<local>
+		<nome>3408</nome>
+		<latitude>-21.77686536</latitude>
+		<longitude>-43.37158062</longitude>
+	</local>
+	
+	<local>
+		<nome>3406</nome>
+		<latitude>-21.77678316</latitude>
+		<longitude>-43.37159403</longitude>
+	</local>
+	
+	<local>
+		<nome>3402</nome>
+		<latitude>-21.77664119</latitude>
+		<longitude>-43.37168388</longitude>
+	</local>
+	
+	<local>
+		<nome>NEQC - Nucleo de Estudos em Quimica Computacional</nome>
+		<latitude>-21.77630493</latitude>
+		<longitude>-43.37186493</longitude>
+	</local>	
+	
+	<local>
+		<nome>GFQSI - Grupo de Fisico-Quimica de Solidos e Interface</nome>
+		<latitude>-21.77630493</latitude>
+		<longitude>-43.37186493</longitude>
+	</local>
+
+	<local>
+		<nome>3102</nome>
+		<latitude>-21.775651</latitude>
+		<longitude>-43.372040</longitude>
+	</local>
+	
+	<local>
+		<nome>3104</nome>
+		<latitude>-21.775730</latitude>
+		<longitude>-43.372021</longitude>
+	</local>
+	
+	<local>
+		<nome>3106</nome>
+		<latitude>-21.775821</latitude>
+		<longitude>-43.371999</longitude>
+	</local>
+	
+	<local>
+		<nome>3108</nome>
+		<latitude>-21.775911</latitude>
+		<longitude>-43.371979</longitude>
+	</local>
+	
+	<local>
+		<nome>3110</nome>
+		<latitude>-21.775995</latitude>
+		<longitude>-43.371961</longitude>
+	</local>
+	
+	<local>
+		<nome>GQAC</nome>
+		<latitude>-21.77616171</latitude>
+		<longitude>-43.37193534</longitude>
+	</local>
+	
+	<local>
+		<nome>3202</nome>
+		<latitude>-21.77598984</latitude>
+		<longitude>-43.37183073</longitude>
+	</local>
+	
+	<local>
+		<nome>3204</nome>
+		<latitude>-21.7760272</latitude>
+		<longitude>-43.37177172</longitude>
+	</local>
+	
+	<local>
+		<nome>NUPIS</nome>
+		<latitude>-21.77611438</latitude>
+		<longitude>-43.37175027</longitude>
+	</local>
+	
+	<local>
+		<nome>3206</nome>
+		<latitude>-21.77611438</latitude>
+		<longitude>-43.37175027</longitude>
+	</local>	
+	
+	<local>
+		<nome>3208</nome>
+		<latitude>-21.77619658</latitude>
+		<longitude>-43.37173149</longitude>
+	</local>
+	
+	<local>
+		<nome>GEEDU</nome>
+		<latitude>-21.77619658</latitude>
+		<longitude>-43.37173149</longitude>
+	</local>
+	
+	<local>
+		<nome>3402</nome>
+		<latitude>-21.77664741</latitude>
+		<longitude>-43.37167785</longitude>
+	</local>
+	
+	<local>
+		<nome>3404</nome>
+		<latitude>-21.77669225</latitude>
+		<longitude>-43.37161884</longitude>
+	</local>
+	
+	<local>
+		<nome>Antiga Biblioteca</nome>
+		<latitude>-21.77669225</latitude>
+		<longitude>-43.37161884</longitude>
+	</local>	
+
+	<local>
+		<nome>Laboratorio de Fisica Aplicada</nome>
+		<latitude>-21.77770351</latitude>
+		<longitude>-43.37141767</longitude>
+	</local>	
+	
+	<local>
+		<nome>3608</nome>
+		<latitude>-21.77756901</latitude>
+		<longitude>-43.37144986</longitude>
+	</local>	
+	
+	<local>
+		<nome>3606</nome>
+		<latitude>-21.77747934</latitude>
+		<longitude>-43.37145254</longitude>
+	</local>	
+	
+	<local>
+		<nome>3604</nome>
+		<latitude>-21.77739216</latitude>
+		<longitude>-43.37146863</longitude>
+	</local>
+
+	<local>
+		<nome>3602</nome>
+		<latitude>-21.77733238</latitude>
+		<longitude>-43.37154642</longitude>
+	</local>
+
+	<local>
+		<nome>3502</nome>
+		<latitude>-21.77699364</latitude>
+		<longitude>-43.37172881</longitude>
+	</local>		
+	
+	<local>
+		<nome>3504</nome>
+		<latitude>-21.77704843</latitude>
+		<longitude>-43.37172076</longitude>
+	</local>		
+	
+	<local>
+		<nome>3506</nome>
+		<latitude>-21.77709078</latitude>
+		<longitude>-43.37171003</longitude>
+	</local>		
+	
+	<local>
+		<nome>3508</nome>
+		<latitude>-21.77717795</latitude>
+		<longitude>-43.37169126</longitude>
+	</local>		
+	
+	<local>
+		<nome>3510</nome>
+		<latitude>-21.7772726</latitude>
+		<longitude>-43.37166712</longitude>
+	</local>
+
+	<local>
+		<nome>LabProMav</nome>
+		<latitude>-21.7772726</latitude>
+		<longitude>-43.37166712</longitude>
+	</local>
+	
+	<local>
+		<nome>TESTANDOTESTANDO</nome>
+		<latitude>-21.77182515</latitude>
+		<longitude>-43.37177575</longitude>
+	</local>				
+	
+</area>
+
+</root>

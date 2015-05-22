@@ -1,0 +1,607 @@
+package com.example.localizador;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.microedition.khronos.egl.EGL10;
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
+
+import android.app.Activity;
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.opengl.GLSurfaceView.Renderer;
+import android.os.Bundle;
+import android.util.Log;
+
+import com.google.android.gms.maps.model.LatLng;
+
+
+/**
+ * This class provides a basic demonstration of how to use the
+ * {@link android.hardware.SensorManager SensorManager} API to draw a 3D
+ * compass.
+ */
+public class SensorToOpenGl extends Activity implements Renderer, SensorEventListener {
+
+	private static final boolean TRY_TRANSPOSED_VERSION = false;
+
+	/*
+	 * MODUS overview:
+	 * 
+	 * 1 - unbufferd data directly transfaired from the rotation matrix to the
+	 * modelview matrix
+	 * 
+	 * 2 - buffered version of 1 where both acceleration and magnetometer are
+	 * buffered
+	 * 
+	 * 3 - buffered version of 1 where only magnetometer is buffered
+	 * 
+	 * 4 - buffered version of 1 where only acceleration is buffered
+	 * 
+	 * 5 - uses the orientation sensor and sets the angles how to rotate the
+	 * camera with glrotate()
+	 * 
+	 * 6 - uses the rotation matrix to calculate the angles
+	 * 
+	 * 7 to 12 - every possibility how the rotationMatrix could be constructed
+	 * in SensorManager.getRotationMatrix (see
+	 * http://www.songho.ca/opengl/gl_anglestoaxes.html#anglestoaxes for all
+	 * possibilities)
+	 */
+
+	private static int MODUS = 2;
+
+	private SensorManager mSensorManager;
+	private float[] rotationMatrix = new float[16];
+	private float[] accelGData = new float[3];
+	private float[] bufferedAccelGData = new float[3];
+	private float[] magnetData = new float[3];
+	private float[] bufferedMagnetData = new float[3];
+	private float[] orientationData = new float[3];
+
+	// private float[] mI = new float[16];
+
+	private float[] resultingAngles = new float[3];
+
+	private int mCount;
+
+	final static float rad2deg = (float) (180.0f / Math.PI);
+
+	private boolean landscape;
+
+	
+//	float[] verteices = new float[] { 	3.0f   , -2.0f ,   -5.0f ,
+//										3.0f   ,  2.0f ,   -5.0f ,
+//										-20.0f , 2.0f  ,   -5.0f ,
+//										-20.0f , -2.0f  ,   -5.0f };
+	
+//	int[] colors = new int[] {  60535, 0, 0, 65535 , 
+//								60535, 0, 0, 65535 ,
+//								25535, 0, 0, 65535 ,
+//								25535, 0, 0, 65535 };
+
+	//	int[] colors = new int[] {  60535, 0, 0, 65535 , 
+	//	60535, 0, 0, 65535};
+	
+	
+	//float[] verteices;
+	//int[] colors;
+	
+	FloatBuffer vBuffer = null;
+	IntBuffer cBuffer = null;
+	
+//	public float[] ponto = new float[3];
+	
+//	FloatBuffer vBuffer = makeFloatBuffer(verteices);
+//	IntBuffer cBuffer = makeIntBuffer(colors);
+	
+	
+	public float[] coord_atual = new float[3];
+	
+	public int qtdPontos = 0;
+
+	private int mDistanceFactor = 2;
+
+	private float mMaxDistanceSizePoints = (float) (0 / 2);
+
+	private float mMinDistanceSizePoints = (float) (0 / 2);
+	
+	public static final double METERS_TO_GEOPOINT = 107817.51838439942;
+	
+	static float baixo = -5.0f;
+	
+
+	public SensorToOpenGl(Context context) {
+		
+		//cBuffer = setColorBuffer();
+		
+//		ponto[0] = 0.0f;
+//		ponto[1] = 0.0f;
+//		ponto[2] = 0.0f;
+		
+		coord_atual[0] = 0.0f;
+		coord_atual[1] = 0.0f;
+		coord_atual[2] = 0.0f;
+		
+		mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+//		openglView = new GLSurfaceView(this);
+//		openglView.setRenderer(this);
+//		setContentView(openglView);		
+		mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_GAME);
+		mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_GAME);
+		mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_GAME);
+		
+	}
+
+	/** Called with the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);	
+	}
+
+	@Override
+	protected void onResume() {
+		// Ideally a game should implement onResume() and onPause()
+		// to take appropriate action when the activity looses focus
+		super.onResume();
+		//openglView.onResume();
+
+//		if (((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay().getOrientation() == 1) {
+//			landscape = true;
+//		} else {
+//			landscape = false;
+//		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+	}
+
+	public int[] getConfigSpec() {
+		// We want a depth buffer, don't care about the
+		// details of the color buffer.
+		int[] configSpec = { EGL10.EGL_DEPTH_SIZE, 16, EGL10.EGL_NONE };
+		return configSpec;
+	}
+
+	public void onDrawFrame(GL10 gl) {
+
+		// clear screen and color buffer:
+		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
+		
+		
+		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+		gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
+		
+		
+		// set target matrix to modelview matrix:
+		gl.glMatrixMode(GL10.GL_MODELVIEW);
+		// init modelview matrix:
+		gl.glLoadIdentity();
+		
+		// move camera away a little bit:
+		gl.glTranslatef(coord_atual[0], coord_atual[1], coord_atual[2]);
+		
+		
+//		gl.glTranslatef(0, 2, 0);
+		
+		gl.glRotatef(45, 0, 0, 1);
+		
+		
+//		if ((MODUS == 1) || (MODUS == 2) || (MODUS == 3) || (MODUS == 4)) {
+//			if (landscape) {
+//				// in landscape mode first remap the rotationMatrix before using
+//				// it with glMultMatrixf:
+//				float[] result = new float[16];
+//				SensorManager.remapCoordinateSystem(rotationMatrix, SensorManager.AXIS_Y, SensorManager.AXIS_MINUS_X, result);
+//				gl.glMultMatrixf(result, 0);
+//			} else {
+//				gl.glMultMatrixf(rotationMatrix, 0);
+//			}
+//		} else {
+//			// in all other modes do the rotation by hand
+//			// the order y x z is important!
+//			gl.glRotatef(resultingAngles[2], 0, 1, 0);
+//			gl.glRotatef(resultingAngles[1], 1, 0, 0);
+//			gl.glRotatef(resultingAngles[0], 0, 0, 1);
+//		}
+		
+		Log.i("COORDENADAS CONVERTIDAS","QTD PONTOS: " + qtdPontos/3);
+		if(qtdPontos > 0){			
+			
+			Log.i("COORDENADAS CONVERTIDAS", "PONTO 1 POSICAO x "+vBuffer.get(0));
+			Log.i("COORDENADAS CONVERTIDAS", "PONTO 1 POSICAO y "+vBuffer.get(1));
+			Log.i("COORDENADAS CONVERTIDAS", "PONTO 1 POSICAO z "+vBuffer.get(2) + "\n\n");
+			
+			Log.i("COORDENADAS CONVERTIDAS", "PONTO 2 POSICAO x "+vBuffer.get(3));
+			Log.i("COORDENADAS CONVERTIDAS", "PONTO 2 POSICAO y "+vBuffer.get(4));
+			Log.i("COORDENADAS CONVERTIDAS", "PONTO 2 POSICAO z "+vBuffer.get(5) + "\n\n");
+			
+			Log.i("COORDENADAS CONVERTIDAS", "PONTO 3 POSICAO x "+vBuffer.get(6));
+			Log.i("COORDENADAS CONVERTIDAS", "PONTO 3 POSICAO y "+vBuffer.get(7));
+			Log.i("COORDENADAS CONVERTIDAS", "PONTO 3 POSICAO z "+vBuffer.get(8) + "\n\n");
+
+			gl.glColorPointer(4, GL10.GL_FIXED, 0, cBuffer);
+			gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vBuffer);
+			gl.glLineWidth(10.0f);
+			gl.glDrawArrays(GL10.GL_LINE_STRIP, 0, qtdPontos);
+			//gl.glFinish();
+			
+			gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
+			gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
+		}
+		
+	}
+
+	public void onSurfaceChanged(GL10 gl, int width, int height) {
+		gl.glViewport(0, 0, width, height);
+		float r = (float) width / height;
+		gl.glMatrixMode(GL10.GL_PROJECTION);
+		gl.glLoadIdentity();
+		gl.glFrustumf(-r, r, -10, 10, 1, 1000); //TODO MUDEI AQUI 10 - 1000
+	}
+
+	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+		gl.glDisable(GL10.GL_DITHER);
+		gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_FASTEST);
+		gl.glClearColor(0, 0, 0, 0);
+		
+//		gl.glEnable(GL10.GL_CULL_FACE);
+//		gl.glShadeModel(GL10.GL_SMOOTH);
+//		gl.glEnable(GL10.GL_DEPTH_TEST);
+//		gl.glDepthFunc(GL10.GL_LEQUAL);
+	}
+
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {}
+
+	public void onSensorChanged(SensorEvent event) {
+				
+		// load the new values:
+		loadNewSensorData(event);
+
+		if (MODUS == 1) {
+			SensorManager.getRotationMatrix(rotationMatrix, null, accelGData, magnetData);
+		}
+
+		if (MODUS == 2) {
+			rootMeanSquareBuffer(bufferedAccelGData, accelGData);
+			rootMeanSquareBuffer(bufferedMagnetData, magnetData);
+			SensorManager.getRotationMatrix(rotationMatrix, null, bufferedAccelGData, bufferedMagnetData);
+		}
+
+		if (MODUS == 3) {
+			rootMeanSquareBuffer(bufferedMagnetData, magnetData);
+			SensorManager.getRotationMatrix(rotationMatrix, null, accelGData, bufferedMagnetData);
+		}
+
+		if (MODUS == 4) {
+			rootMeanSquareBuffer(bufferedAccelGData, accelGData);
+			SensorManager.getRotationMatrix(rotationMatrix, null, bufferedAccelGData, magnetData);
+		}
+
+		if (MODUS == 5) {
+			// this mode uses the sensor data recieved from the orientation
+			// sensor
+			resultingAngles = orientationData.clone();
+			if ((-90 > resultingAngles[1]) || (resultingAngles[1] > 90)) {
+				resultingAngles[1] = orientationData[0];
+				resultingAngles[2] = orientationData[1];
+				resultingAngles[0] = orientationData[2];
+			}
+		}
+
+		if (MODUS == 6) {
+			SensorManager.getRotationMatrix(rotationMatrix, null, accelGData, magnetData);
+			final float[] anglesInRadians = new float[3];
+			SensorManager.getOrientation(rotationMatrix, anglesInRadians);
+			// TODO check for landscape mode
+			resultingAngles[0] = anglesInRadians[0] * rad2deg;
+			resultingAngles[1] = anglesInRadians[1] * rad2deg;
+			resultingAngles[2] = anglesInRadians[2] * -rad2deg;
+		}
+
+		if (MODUS == 7) {
+			SensorManager.getRotationMatrix(rotationMatrix, null, accelGData, magnetData);
+
+			rotationMatrix = transpose(rotationMatrix);
+			/*
+			 * this assumes that the rotation matrices are multiplied in x y z
+			 * order Rx*Ry*Rz
+			 */
+
+			resultingAngles[2] = (float) (Math.asin(rotationMatrix[2]));
+			final float cosB = (float) Math.cos(resultingAngles[2]);
+			resultingAngles[2] = resultingAngles[2] * rad2deg;
+			resultingAngles[0] = -(float) (Math.acos(rotationMatrix[0] / cosB)) * rad2deg;
+			resultingAngles[1] = (float) (Math.acos(rotationMatrix[10] / cosB)) * rad2deg;
+		}
+
+		if (MODUS == 8) {
+			SensorManager.getRotationMatrix(rotationMatrix, null, accelGData, magnetData);
+			rotationMatrix = transpose(rotationMatrix);
+			/*
+			 * this assumes that the rotation matrices are multiplied in z y x
+			 */
+
+			resultingAngles[2] = (float) (Math.asin(-rotationMatrix[8]));
+			final float cosB = (float) Math.cos(resultingAngles[2]);
+			resultingAngles[2] = resultingAngles[2] * rad2deg;
+			resultingAngles[1] = (float) (Math.acos(rotationMatrix[9] / cosB)) * rad2deg;
+			resultingAngles[0] = (float) (Math.asin(rotationMatrix[4] / cosB)) * rad2deg;
+		}
+
+		if (MODUS == 9) {
+			SensorManager.getRotationMatrix(rotationMatrix, null, accelGData, magnetData);
+			rotationMatrix = transpose(rotationMatrix);
+			/*
+			 * this assumes that the rotation matrices are multiplied in z x y
+			 * 
+			 * note z axis looks good at this one
+			 */
+
+			resultingAngles[1] = (float) (Math.asin(rotationMatrix[9]));
+			final float minusCosA = -(float) Math.cos(resultingAngles[1]);
+			resultingAngles[1] = resultingAngles[1] * rad2deg;
+			resultingAngles[2] = (float) (Math.asin(rotationMatrix[8] / minusCosA)) * rad2deg;
+			resultingAngles[0] = (float) (Math.asin(rotationMatrix[1] / minusCosA)) * rad2deg;
+		}
+
+		if (MODUS == 10) {
+			SensorManager.getRotationMatrix(rotationMatrix, null, accelGData, magnetData);
+			rotationMatrix = transpose(rotationMatrix);
+			/*
+			 * this assumes that the rotation matrices are multiplied in y x z
+			 */
+
+			resultingAngles[1] = (float) (Math.asin(-rotationMatrix[6]));
+			final float cosA = (float) Math.cos(resultingAngles[1]);
+			resultingAngles[1] = resultingAngles[1] * rad2deg;
+			resultingAngles[2] = (float) (Math.asin(rotationMatrix[2] / cosA)) * rad2deg;
+			resultingAngles[0] = (float) (Math.acos(rotationMatrix[5] / cosA)) * rad2deg;
+		}
+
+		if (MODUS == 11) {
+			SensorManager.getRotationMatrix(rotationMatrix, null, accelGData, magnetData);
+			rotationMatrix = transpose(rotationMatrix);
+			/*
+			 * this assumes that the rotation matrices are multiplied in y z x
+			 */
+
+			resultingAngles[0] = (float) (Math.asin(rotationMatrix[4]));
+			final float cosC = (float) Math.cos(resultingAngles[0]);
+			resultingAngles[0] = resultingAngles[0] * rad2deg;
+			resultingAngles[2] = (float) (Math.acos(rotationMatrix[0] / cosC)) * rad2deg;
+			resultingAngles[1] = (float) (Math.acos(rotationMatrix[5] / cosC)) * rad2deg;
+		}
+
+		if (MODUS == 12) {
+			SensorManager.getRotationMatrix(rotationMatrix, null, accelGData, magnetData);
+			rotationMatrix = transpose(rotationMatrix);
+			/*
+			 * this assumes that the rotation matrices are multiplied in x z y
+			 */
+
+			resultingAngles[0] = (float) (Math.asin(-rotationMatrix[1]));
+			final float cosC = (float) Math.cos(resultingAngles[0]);
+			resultingAngles[0] = resultingAngles[0] * rad2deg;
+			resultingAngles[2] = (float) (Math.acos(rotationMatrix[0] / cosC)) * rad2deg;
+			resultingAngles[1] = (float) (Math.acos(rotationMatrix[5] / cosC)) * rad2deg;
+		}
+		logOutput();
+	}
+
+	/**
+	 * transposes the matrix because it was transposted (inverted, but here its
+	 * the same, because its a rotation matrix) to be used for opengl
+	 * 
+	 * @param source
+	 * @return
+	 */
+	private float[] transpose(float[] source) {
+		final float[] result = source.clone();
+		if (TRY_TRANSPOSED_VERSION) {
+			result[1] = source[4];
+			result[2] = source[8];
+			result[4] = source[1];
+			result[6] = source[9];
+			result[8] = source[2];
+			result[9] = source[6];
+		}
+		// the other values in the matrix are not relevant for rotations
+		return result;
+	}
+
+	private void rootMeanSquareBuffer(float[] target, float[] values) {
+
+		final float amplification = 200.0f;
+		float buffer = 20.0f;
+
+		target[0] += amplification;
+		target[1] += amplification;
+		target[2] += amplification;
+		values[0] += amplification;
+		values[1] += amplification;
+		values[2] += amplification;
+
+		target[0] = (float) (Math.sqrt((target[0] * target[0] * buffer + values[0] * values[0]) / (1 + buffer)));
+		target[1] = (float) (Math.sqrt((target[1] * target[1] * buffer + values[1] * values[1]) / (1 + buffer)));
+		target[2] = (float) (Math.sqrt((target[2] * target[2] * buffer + values[2] * values[2]) / (1 + buffer)));
+
+		target[0] -= amplification;
+		target[1] -= amplification;
+		target[2] -= amplification;
+		values[0] -= amplification;
+		values[1] -= amplification;
+		values[2] -= amplification;
+	}
+
+	private void loadNewSensorData(SensorEvent event) {
+		final int type = event.sensor.getType();
+		if (type == Sensor.TYPE_ACCELEROMETER) {
+			accelGData = event.values.clone();
+		}
+		if (type == Sensor.TYPE_MAGNETIC_FIELD) {
+			magnetData = event.values.clone();
+		}
+		if (type == Sensor.TYPE_ORIENTATION) {
+			orientationData = event.values.clone();
+		}
+	}
+
+	private void logOutput() {
+		if (mCount++ > 30) {
+			mCount = 0;
+			//Log.d("Compass", "yaw0: " + (int) (resultingAngles[0]) + "  pitch1: " + (int) (resultingAngles[1]) + "  roll2: " + (int) (resultingAngles[2]));
+		}
+	}
+	
+	
+	public static FloatBuffer makeFloatBuffer(List<LatLng> pts) {
+		float[] ptsFloat = new float[pts.size()*3];
+		int j = 0;
+		for(int i = 0; i < pts.size()*3; i = i+3){
+			ptsFloat[i] = (float) pts.get(j).latitude;
+			ptsFloat[i+1] = (float) pts.get(j).longitude;
+			ptsFloat[i+2] = baixo;
+			j++;
+		}
+		
+		ByteBuffer bb = ByteBuffer.allocateDirect(pts.size()*3 * 4);
+		bb.order(ByteOrder.nativeOrder());
+		FloatBuffer fb = bb.asFloatBuffer();
+		fb.put(ptsFloat);
+		fb.position(0);
+		return fb;
+	}
+	
+	public static IntBuffer makeIntBuffer(int tam) {
+		
+		int[] cores = new int[tam*4];
+		for(int i =0; i < cores.length; i =i+4){
+			cores[i] = 60535;
+			cores[i+1] = 0;
+			cores[i+2] = 0;
+			cores[i+3] = 60535;
+		}
+		
+		ByteBuffer bb = ByteBuffer.allocateDirect(cores.length * 4);
+		bb.order(ByteOrder.nativeOrder());
+		IntBuffer ib = bb.asIntBuffer();
+		ib.put(cores);
+		ib.position(0);
+		return ib;
+	}
+
+	public void setPoints(List<LatLng> pontosCartesianos) {
+		
+		this.qtdPontos = pontosCartesianos.size()*3;
+		
+		
+		List<LatLng> pontosFinal = new ArrayList<LatLng>();
+		
+		for(int i = 0; i < pontosCartesianos.size(); i++){
+			double[] coordenada = new double[3];
+			coordenada[0]  = pontosCartesianos.get(i).latitude;
+			coordenada[1]  = pontosCartesianos.get(i).longitude;
+			coordenada[2]  = -5.0;
+			coordenada = convertGPStoPoint(coordenada);
+			pontosFinal.add(new LatLng(coordenada[0], coordenada[1]));
+		}
+		
+		pontosCartesianos = pontosFinal;
+		
+		this.coord_atual[0] = (float) pontosFinal.get(0).latitude;
+		this.coord_atual[1] =  (float) pontosFinal.get(0).longitude;
+		this.coord_atual[2] = -5.0f;
+		
+		
+		vBuffer = makeFloatBuffer(pontosFinal);
+		cBuffer = makeIntBuffer(pontosFinal.size());
+		//setColorBuffer();
+		//vBuffer = makeFloatBuffer(pontosCartesianos);
+		
+	}
+	
+	
+	public void setPoints2(List<LatLng> pontosCartesianos) {
+		
+		this.qtdPontos = pontosCartesianos.size()*3;
+		
+		
+		this.coord_atual[0] = (float) pontosCartesianos.get(0).latitude;
+		this.coord_atual[1] = (float) pontosCartesianos.get(0).longitude;
+		this.coord_atual[2] =  baixo;
+		
+		vBuffer = makeFloatBuffer(pontosCartesianos);
+		cBuffer = makeIntBuffer(pontosCartesianos.size());	
+	}
+		
+	protected double[] convertGPStoPoint(double[] sOut) {
+		float x, z, y;
+		x = (float) (fastConversionGeopointsToMeters(sOut[1]
+				- this.coord_atual[1]) / mDistanceFactor );
+		z = (float) (fastConversionGeopointsToMeters(sOut[2] 
+				- this.coord_atual[2]) / mDistanceFactor);
+		y = (float) (fastConversionGeopointsToMeters(sOut[0] 
+				- this.coord_atual[0]) / mDistanceFactor);
+
+		if (mMaxDistanceSizePoints  > 0 || mMinDistanceSizePoints  > 0) {
+			double totalDst = calculateDistance(x, y, 0, 0);
+
+			if (mMaxDistanceSizePoints > 0 && totalDst > mMaxDistanceSizePoints) {
+				linearInterpolate(0, 0, 0, x, y, 0, mMaxDistanceSizePoints, totalDst, sOut);
+				x = (float) sOut[0];
+				y = (float) sOut[1];
+				if (mMinDistanceSizePoints > 0) {
+					totalDst = calculateDistance(x, y, 0, 0);
+				}
+			}
+			if (mMinDistanceSizePoints > 0 && totalDst < mMinDistanceSizePoints) {
+				linearInterpolate(0, 0, 0, x, y, 0, mMinDistanceSizePoints, totalDst, sOut);
+				x = (float) sOut[0];
+				y = (float) sOut[1];
+			}
+		}
+		double[] retorno = new double[3];
+		retorno[0] = x;
+		retorno[1] = y;
+		retorno[2] = z;
+		return retorno;
+	}
+
+	public static void linearInterpolate(double x_start, double y_start, double z_start, double x_end,
+			double y_end, double z_end, double newDistance, double totalDistanceToMove, double[] dstPoint) {
+
+		double x = (x_start + newDistance * (x_end - x_start) / totalDistanceToMove);
+		double y = (y_start + newDistance * (y_end - y_start) / totalDistanceToMove);
+		double z = (z_start + newDistance * (z_end) / totalDistanceToMove);
+
+		dstPoint[0] = x;
+		dstPoint[1] = y;
+		dstPoint[2] = z;
+	}
+	
+	public static double fastConversionGeopointsToMeters(double geoPoints) {
+		return geoPoints * METERS_TO_GEOPOINT;
+	}
+	
+	public static double calculateDistance(double x1, double y1, double x2, double y2) {
+		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+	}
+
+	public static double calculateDistance(double x1, double y1, double z1, double x2, double y2, double z2) {
+		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) + Math.pow(z1 - z2, 2));
+	}
+	
+
+}
